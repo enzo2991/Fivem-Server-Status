@@ -11,6 +11,6 @@ Server status discord with cmds(!maintenance,!start,!first)
 
 # Commands
 
-!maintenance = change the status of your server by putting it in maintenance.
-!start = restart the countdown for server status.
-!fisrt = send a message in the channel indicate in the config.
+* !maintenance = change the status of your server by putting it in maintenance.
+* !start = restart the countdown for server status.
+* !fisrt = send a message in the channel indicate in the config.
