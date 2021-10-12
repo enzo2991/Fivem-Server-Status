@@ -122,7 +122,7 @@ function updatePlayers() {
                 .setTitle('__**Kelloogs  RolePlay**__')
                 .addField('**Statut du serveur:**', `✅ En Ligne`, true)
                 .addField('**Nombre de joueur en ligne:**', `**Total:** \`${data.clients}\` / \`${data.sv_maxclients}\``, true)
-                .addBlankField()
+                .addField('\u200B','\u200B')
                 .setImage('https://i.imgur.com/QN6Xg1D.png')
                 .setTimestamp()
                 .setFooter('Actualisation', 'https://i.imgur.com/QN6Xg1D.png');
