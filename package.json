@@ -1,5 +1,5 @@
 {
-  "name": "Fivem-Server-Status",
+  "name": "fivem_server_status",
   "version": "1.0.0",
   "description": "Bot that updates a predefined channel in discord with a current player count of a fivem server.",
   "main": "index.js",
