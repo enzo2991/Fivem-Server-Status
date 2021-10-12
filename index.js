@@ -71,10 +71,12 @@ bot.on("message", message => {
             });
         }
     } else {
-        message.delete();
-        message.reply("Tu n'as pas le role necessaire pour utiliser cette commande.").then(msg => {
-            msg.delete(20 * 1000)
-        });
+        if (message.content == "!first" || message.content == "!maintenance" || message.content == "!start") {
+            message.delete();
+            message.reply("Tu n'as pas le role necessaire pour utiliser cette commande.").then(msg => {
+                msg.delete(20 * 1000)
+            });
+        }
     }
 });
 
