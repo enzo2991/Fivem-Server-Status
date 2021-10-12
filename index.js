@@ -88,13 +88,8 @@ function updatePlayers() {
     http.get(`http://${args}/dynamic.json`, { json: true }, (err, res, data) => {
         if (err) {
             if (err.code == "ECONNREFUSED" || err.code == "ETIMEDOUT") {
-                bot.user.setPresence({
-                    status: "dnd",
-                    game: {
-                        name: `Serveur Kelloogs Eteint!`,
-                        type: "Watching",
-                    }
-                })
+                bot.user.setActivity('Serveur Kelloogs Eteint!',{type: "WATCHING"});
+                bot.user.setStatus('dnd');
                 var embed = new discord.MessageEmbed()
                     .setColor('#ff0000')
                     .addField('**Statut du serveur:**', `❌ Hors Ligne`)
@@ -106,18 +101,14 @@ function updatePlayers() {
             }
         }
         else {
-            bot.user.setPresence({
-                status: "online",
-                game: {
-                    name: `${data.clients} Joueurs sur Kelloogs!`,
-                    type: "Playing",
-                }
-            })
+            bot.user.setActivity(`${data.clients} Joueurs sur Kelloogs!`,{type: "Playing"});
+            bot.user.setStatus('online');
             var embed = new discord.MessageEmbed()
                 .setColor('#00ff00')
                 .setTitle('__**Kelloogs  RolePlay**__')
                 .addField('**Statut du serveur:**', `✅ En Ligne`, true)
                 .addField('**Nombre de joueur en ligne:**', `**Total:** \`${data.clients}\` / \`${data.sv_maxclients}\``, true)
+                .addField('IP du serveur',config.server)
                 .addField('\u200B','\u200B')
                 .setImage('https://i.imgur.com/QN6Xg1D.png')
                 .setTimestamp()
@@ -128,13 +119,8 @@ function updatePlayers() {
 }
 
 function maintenance() {
-    bot.user.setPresence({
-        status: "idle",
-        game: {
-            name: `Serveur en maintenance!`,
-            type: "Watching",
-        }
-    })
+    bot.user.setActivity(`Serveur en maintenance!`,{type: "Watching"});
+    bot.user.setStatus('idle');
     var embed = new discord.MessageEmbed()
         .setColor('#FF8000')
         .addField('**Statut du serveur:**', `🔸 maintenance`)
