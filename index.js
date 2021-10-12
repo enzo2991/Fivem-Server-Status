@@ -60,7 +60,7 @@ bot.on("message", message => {
                 msg.delete(20 * 1000)
             });
         }
-        if (message.content == "!first" && message.member.roles.has(config.staffteam) && firstcmd == 0) {
+        if (message.content == "!first" && firstcmd == 0) {
             firstcmd = 1;
             message.delete();
             bot.channels.get(config.channels).send(`Ce message va etre modifier`);
