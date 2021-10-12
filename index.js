@@ -28,7 +28,7 @@ var interrupteur = 0;
 var firstcmd = 0;
 console.log(`Démarrage du bot...`);
 bot.on("message", message => {
-    if (message.member.roles.has(config.staffteam)) {
+    if (message.member && message.member.roles.cache.has(process.env.staffteam)) {
         if (message.content == "!start" && interrupteur == 1) {
             if (message.deletable) {
                 message.delete();
@@ -63,7 +63,7 @@ bot.on("message", message => {
         if (message.content == "!first" && firstcmd == 0) {
             firstcmd = 1;
             message.delete();
-            bot.channels.get(config.channels).send(`Ce message va etre modifier`);
+            bot.channels.cache.get(config.channels).send(`Ce message va etre modifier`);
         } else if(message.content == "!first" && firstcmd == 1){
             message.delete();
             message.reply("Le message est deja envoyer.").then(msg => {
@@ -85,7 +85,6 @@ var updatePlayerInterval;
 updatePlayerInterval = setInterval(() => updatePlayers(), config.refreshtime * 1000);
 function updatePlayers() {
     var args = config.server;
-    let guild = bot.guilds.get(config.guild);
     http.get(`http://${args}/dynamic.json`, { json: true }, (err, res, data) => {
         if (err) {
             if (err.code == "ECONNREFUSED" || err.code == "ETIMEDOUT") {
