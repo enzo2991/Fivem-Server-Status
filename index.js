@@ -64,6 +64,11 @@ bot.on("message", message => {
             firstcmd = 1;
             message.delete();
             bot.channels.get(config.channels).send(`Ce message va etre modifier`);
+        } else if(message.content == "!first" && firstcmd == 1){
+            message.delete();
+            message.reply("Le message est deja envoyer.").then(msg => {
+                msg.delete(20 * 1000)
+            });
         }
     } else {
         message.delete();
