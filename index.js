@@ -95,7 +95,7 @@ function updatePlayers() {
                         type: "Watching",
                     }
                 })
-                var embed = new discord.RichEmbed()
+                var embed = new discord.MessageEmbed()
                     .setColor('#ff0000')
                     .addField('**Statut du serveur:**', `❌ Hors Ligne`)
                     .setTitle('__**Kelloogs  RolePlay**__')
@@ -117,7 +117,7 @@ function updatePlayers() {
                     type: "Playing",
                 }
             })
-            var embed = new discord.RichEmbed()
+            var embed = new discord.MessageEmbed()
                 .setColor('#00ff00')
                 .setTitle('__**Kelloogs  RolePlay**__')
                 .addField('**Statut du serveur:**', `✅ En Ligne`, true)
@@ -143,7 +143,7 @@ function maintenance() {
             type: "Watching",
         }
     })
-    var embed = new discord.RichEmbed()
+    var embed = new discord.MessageEmbed()
         .setColor('#FF8000')
         .addField('**Statut du serveur:**', `🔸 maintenance`)
         .setTitle('__**KeLLoOgs  RolePlay GTA**__')
