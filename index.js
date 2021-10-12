@@ -21,27 +21,27 @@ const config = {
     "staffteam": "",
     "channels": "",
     "messsage": '',
-    "refreshtime": 120,
-    "server": "ip:port"
+    "refreshtime": 10,
+    "server": ""
 };
 var interrupteur = 0;
 var firstcmd = 0;
 console.log(`Démarrage du bot...`);
 bot.on("message", message => {
-    if (message.member && message.member.roles.cache.has(process.env.staffteam)) {
+    if (message.member && message.member.roles.cache.has(config.staffteam)) {
         if (message.content == "!start" && interrupteur == 1) {
             if (message.deletable) {
                 message.delete();
             }
             updatePlayerInterval = setInterval(() => updatePlayers(), config.refreshtime * 1000);
             message.reply("relancement du compteur.").then(msg => {
-                msg.delete(config.refreshtime * 1000)
+                msg.delete({ timeout: config.refreshtime*1000 })
             });
             interrupteur = 0;
         } else if (message.content == "!start" && interrupteur == 0) {
             message.delete();
             message.reply("Le bot est deja allumer.").then(msg => {
-                msg.delete(20 * 1000)
+                msg.delete({ timeout: 20*1000 })
             });
         }
         if (message.content == "!maintenance" && interrupteur == 0) {
@@ -52,12 +52,12 @@ bot.on("message", message => {
             clearInterval(updatePlayerInterval);
             maintenance();
             message.reply("Mise en maintenance du serveur.").then(msg => {
-                msg.delete(20 * 1000)
+                msg.delete({ timeout: 20*1000 })
             });
         } else if (message.content == "!maintenance" && interrupteur == 1) {
             message.delete();
             message.reply("Le serveur est deja en maintenance.").then(msg => {
-                msg.delete(20 * 1000)
+                msg.delete({ timeout: 20*1000 })
             });
         }
         if (message.content == "!first" && firstcmd == 0) {
@@ -67,14 +67,14 @@ bot.on("message", message => {
         } else if(message.content == "!first" && firstcmd == 1){
             message.delete();
             message.reply("Le message est deja envoyer.").then(msg => {
-                msg.delete(20 * 1000)
+                msg.delete({ timeout: 20*1000 })
             });
         }
     } else {
         if (message.content == "!first" || message.content == "!maintenance" || message.content == "!start") {
             message.delete();
             message.reply("Tu n'as pas le role necessaire pour utiliser cette commande.").then(msg => {
-                msg.delete(20 * 1000)
+                msg.delete({ timeout: 20*1000 })
             });
         }
     }
@@ -102,11 +102,7 @@ function updatePlayers() {
                     .setImage('https://i.imgur.com/QN6Xg1D.png')
                     .setTimestamp()
                     .setFooter('Actualisation', 'https://i.imgur.com/QN6Xg1D.png');
-                const maindiscord = bot.guilds.find(g => g.id === config.guild);
-                const statuschannel = maindiscord.channels.find(c => c.id === config.channels);
-                statuschannel.fetchMessage(config.messsage).then((msg) => {
-                    msg.edit(embed)
-                })
+                bot.channels.cache.get(config.channels).messages.fetch(config.messsage).then(msg => msg.edit(embed))
             }
         }
         else {
@@ -126,11 +122,7 @@ function updatePlayers() {
                 .setImage('https://i.imgur.com/QN6Xg1D.png')
                 .setTimestamp()
                 .setFooter('Actualisation', 'https://i.imgur.com/QN6Xg1D.png');
-            const maindiscord = bot.guilds.find(g => g.id === config.guild);
-            const statuschannel = maindiscord.channels.find(c => c.id === config.channels);
-            statuschannel.fetchMessage(config.messsage).then((msg) => {
-                msg.edit(embed)
-            })
+            bot.channels.cache.get(config.channels).messages.fetch(config.messsage).then(msg => msg.edit(embed))
         }
     });
 }
@@ -150,9 +142,5 @@ function maintenance() {
         .setImage('https://i.imgur.com/QN6Xg1D.png')
         .setTimestamp()
         .setFooter('Actualisation', 'https://i.imgur.com/QN6Xg1D.png');
-    const maindiscord = bot.guilds.find(g => g.id === config.guild)
-    const statuschannel = maindiscord.channels.find(c => c.id === config.channels);
-    statuschannel.fetchMessage(config.messsage).then((msg) => {
-        msg.edit(embed)
-    })
+    bot.channels.cache.get(config.channels).messages.fetch(config.messsage).then(msg => msg.edit(embed))
 }
