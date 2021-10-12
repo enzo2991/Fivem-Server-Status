@@ -52,7 +52,7 @@ bot.on("message", message => {
             clearInterval(updatePlayerInterval);
             maintenance();
             message.reply("Mise en maintenance du serveur.").then(msg => {
-                msg.delete(config.refreshtime * 1000)
+                msg.delete(20 * 1000)
             });
         } else if (message.content == "!maintenance" && interrupteur == 1) {
             message.delete();
